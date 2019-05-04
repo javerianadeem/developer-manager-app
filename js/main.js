@@ -1,12 +1,12 @@
 var developers = JSON.parse(localStorage.getItem("developers"));//Retrieve the stored data_ 
 //If there is no data, initialize an empty array
-if(developers == null) {
+if (developers == null) {
     var developers = []
 }
 
 var employee = document.getElementById('developerCard')
 
-document.getElementById("form").addEventListener("submit",(e)=>{
+document.getElementById("form").addEventListener("submit", (e) => {
     e.preventDefault()
     Create()
     Read()
@@ -15,24 +15,24 @@ document.getElementById("form").addEventListener("submit",(e)=>{
 //CREATE DEVELOPER FUNCTION
 function Create() {
     var developer = {
-        name : document.getElementById("name").value,
-        email : document.getElementById("email").value,
-        designation : document.getElementById("designation").value,
-        language : document.getElementById("language").value,
-        salary : document.getElementById("salary").value,
-        linkedin : document.getElementById("linkedin").value,
-        github : document.getElementById("github").value,
-        photo : document.getElementById("photo").value
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        designation: document.getElementById("designation").value,
+        language: document.getElementById("language").value,
+        salary: document.getElementById("salary").value,
+        linkedin: document.getElementById("linkedin").value,
+        github: document.getElementById("github").value,
+        photo: document.getElementById("photo").value
     };
     developers.push(developer)
-    localStorage.setItem("developers",JSON.stringify(developers))
+    localStorage.setItem("developers", JSON.stringify(developers))
 }
 // READS ALL DEVELOPERS 
 function Read() {
-    employee.innerHTML =''
+    employee.innerHTML = ''
     developers2 = JSON.parse(localStorage.getItem("developers"))
-    if(developers2 !== null){
-        for(var i = 0; i < developers2.length; i++){
+    if (developers2 !== null) {
+        for (var i = 0; i < developers2.length; i++) {
             employee.innerHTML += `
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-sm-10 offset-sm-1 pr-0 mr-0">
             <div class="card border border-success mb-3">
@@ -62,10 +62,10 @@ function Read() {
 //UPDATE DEVELOPER FUNCTION
 function Update(i3) {
     let developers3 = JSON.parse(localStorage.getItem("developers"));
-    employee.innerHTML=''
-    for(var i = 0;i < developers3.length;i++) {
-        if(i===i3) {
-            employee.innerHTML+=`
+    employee.innerHTML = ''
+    for (var i = 0; i < developers3.length; i++) {
+        if (i === i3) {
+            employee.innerHTML += `
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-sm-10 offset-sm-1 pr-0 mr-0">
             <div class=" border border-danger card mb-2">
             <div class="card-body">
@@ -93,8 +93,8 @@ function Update(i3) {
             </div>
             </div>
             `
-        }else{
-            employee.innerHTML+= `
+        } else {
+            employee.innerHTML += `
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-0 col-sm-10 offset-sm-1 pr-0 mr-0">
             <div class="border border-success card mb-2">
             <div class="card-body">
@@ -118,59 +118,56 @@ function Update(i3) {
     }
 }
 function Update2(x) {
-        developers[x] = {
-        name : document.getElementById("newName").value,
-        email : document.getElementById("newEmail").value,
-        designation : document.getElementById("newDesignation").value,
-        language : document.getElementById("newLanguage").value,
-        salary : document.getElementById("newSalary").value,
-        linkedin : document.getElementById("newLinkedin").value,
-        github : document.getElementById("newGithub").value,
-        photo : document.getElementById("newPhoto").value
+    developers[x] = {
+        name: document.getElementById("newName").value,
+        email: document.getElementById("newEmail").value,
+        designation: document.getElementById("newDesignation").value,
+        language: document.getElementById("newLanguage").value,
+        salary: document.getElementById("newSalary").value,
+        linkedin: document.getElementById("newLinkedin").value,
+        github: document.getElementById("newGithub").value,
+        photo: document.getElementById("newPhoto").value
     };
     var re = /\S+@\S+/;
-    if(developers[x].photo === ''){
+    if (developers[x].photo === '') {
         developers[x].photo = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
     }
-    if(!re.test(developers[x].email))
-    {
+    if (!re.test(developers[x].email)) {
         alert('Wrong address')
     }
     else {
-   
-    if((developers[x].name=== '') || (developers[x].email=== '') || (developers[x].designation=== '') || (developers[x].language=== '') || (developers[x].salary=== '') || (developers[x].linkedin=== '') || (developers[x].github=== '')){
-        alert("You have missed out a field")
+
+        if ((developers[x].name === '') || (developers[x].email === '') || (developers[x].designation === '') || (developers[x].language === '') || (developers[x].salary === '') || (developers[x].linkedin === '') || (developers[x].github === '')) {
+            alert("You have missed out a field")
+        }
+        else {
+            localStorage.setItem("developers", JSON.stringify(developers))
+            Read()
+        }
     }
-    else {
-        localStorage.setItem("developers",JSON.stringify(developers))
-        Read()
-    }
-}
 }
 // DELETE DEVELOPER FUNCTION
 function Delete(y) {
     let developers5 = JSON.parse(localStorage.getItem("developers"))
-    developers5.splice(y,1)
-    localStorage.setItem("developers",JSON.stringify(developers5))
-  
+    developers5.splice(y, 1)
+    localStorage.setItem("developers", JSON.stringify(developers5))
+
     Read()
 }
 // SORT DEVELOPER FUNCTION
 function sort() {
     developers6 = JSON.parse(localStorage.getItem("developers"))
-    if(developers6 !== null){
-        for(var i = 0; i < developers6.length; i++){
-            for (var j = i + 1; j < developers6.length; ++j)
-            {
-                if (developers6[i].name.toLowerCase() > developers6[j].name.toLowerCase()) 
-                {
-                    var a =  developers6[i];
+    if (developers6 !== null) {
+        for (var i = 0; i < developers6.length; i++) {
+            for (var j = i + 1; j < developers6.length; ++j) {
+                if (developers6[i].name.toLowerCase() > developers6[j].name.toLowerCase()) {
+                    var a = developers6[i];
                     developers6[i] = developers6[j];
                     developers6[j] = a;
                 }
+            }
         }
-    }  
     }
-    localStorage.setItem("developers",JSON.stringify(developers6))
+    localStorage.setItem("developers", JSON.stringify(developers6))
     Read()
 }
